@@ -1,0 +1,18 @@
+Source: kaptan
+Maintainer: Ivan Borzenkov <ivan1986@list.ru>
+Section: python
+Priority: optional
+Build-Depends: dh-python, python-setuptools (>= 0.6b3), python3-setuptools, python-all (>= 2.6.6-3), python3-all, debhelper (>= 9), python-yaml, python3-yaml
+Standards-Version: 3.9.6
+Homepage: https://github.com/emre/kaptan
+
+Package: python-kaptan
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}
+Description: Configuration Manager
+
+Package: python3-kaptan
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}
+Description: Configuration Manager
+
