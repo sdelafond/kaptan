@@ -5,6 +5,8 @@ Priority: optional
 Build-Depends: dh-python, python-setuptools, python3-setuptools, python-all, python3-all, debhelper (>= 9), python-yaml, python3-yaml
 Standards-Version: 3.9.8
 Homepage: https://github.com/emre/kaptan
+Vcs-Git: https://anonscm.debian.org/git/collab-maint/python-kaplan.git
+Vcs-Browser: https://anonscm.debian.org/git/collab-maint/python-kaplan.git
 
 Package: python-kaptan
 Architecture: all
