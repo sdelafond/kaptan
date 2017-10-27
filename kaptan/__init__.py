@@ -11,11 +11,12 @@
 
 from __future__ import print_function, unicode_literals
 
+import argparse
 import os
 from collections import Mapping, Sequence
 
 from .handlers.dict_handler import DictHandler
-from .handlers.file_handler import FileHandler
+from .handlers.pyfile_handler import PyFileHandler
 from .handlers.ini_handler import IniHandler
 from .handlers.json_handler import JsonHandler
 from .handlers.yaml_handler import YamlHandler
@@ -38,7 +39,7 @@ class Kaptan(object):
         'json': JsonHandler,
         'dict': DictHandler,
         'yaml': YamlHandler,
-        'file': FileHandler,
+        'file': PyFileHandler,
         'ini': IniHandler,
     }
 
@@ -52,8 +53,20 @@ class Kaptan(object):
         self.configuration_data.update({key: value})
         return self
 
+    def _is_python_file(self, value):
+        """ Return True if the `value` is the path to an existing file with a
+        `.py` extension. False otherwise
+        """
+        ext = os.path.splitext(value)[1][1:]
+        if ext == 'py' or os.path.isfile(value + '.py'):
+            return True
+        return False
+
     def import_config(self, value):
-        if not isinstance(value, dict) and os.path.isfile(value):
+        if isinstance(value, dict):  # load python dict
+            self.handler = self.HANDLER_MAP['dict']()
+            data = value
+        elif os.path.isfile(value) and not self._is_python_file(value):
             if not self.handler:
                 try:
                     key = HANDLER_EXT.get(os.path.splitext(value)[1][1:], None)
@@ -61,11 +74,21 @@ class Kaptan(object):
                 except:
                     raise RuntimeError("Unable to determine handler")
             with open(value) as f:
-                value = f.read()
-        elif isinstance(value, dict):  # load python dict
-            self.handler = self.HANDLER_MAP['dict']()
+                data = f.read()
+        elif self._is_python_file(value):  # is a python file
+            self.handler = self.HANDLER_MAP[HANDLER_EXT['py']]()
+            if not value.endswith('.py'):
+                value += '.py'  # in case someone is referring to a module
+            data = os.path.abspath(os.path.expanduser(value))
+            if not os.path.isfile(data):
+                raise IOError('File {0} not found.'.format(data))
+        else:
+            if not self.handler:
+                raise RuntimeError("Unable to determine handler")
 
-        self.configuration_data = self.handler.load(value)
+            data = value
+
+        self.configuration_data = self.handler.load(data)
         return self
 
     def _get(self, key):
@@ -116,14 +139,16 @@ class Kaptan(object):
         return default
 
 
-def main():
-    import argparse
-    from sys import stdin
-    from collections import OrderedDict
+def get_parser():
+    """Create and return argument parser.
 
+    :rtype: :class:`argparse.ArgumentParser`
+    :return: CLI Parser
+    """
     parser = argparse.ArgumentParser(
         prog=__package__,
-        description='Configuration manager in your pocket')
+        description='Configuration manager in your pocket'
+    )
     parser.add_argument('config_file', action='store', nargs='*',
                         help="file/s to load config from")
     parser.add_argument('--handler', action='store', default='json',
@@ -132,6 +157,14 @@ def main():
                         help="set format to export to")
     parser.add_argument('-k', '--key', action='store',
                         help="set config key to get value of")
+    return parser
+
+
+def main():
+    from sys import stdin
+    from collections import OrderedDict
+
+    parser = get_parser()
     args, ukargs = parser.parse_known_args()
 
     config = Kaptan()
@@ -171,4 +204,3 @@ def main():
         print(config.export(args.export))
 
     parser.exit(0)
-
