@@ -1,3 +1,9 @@
+python-kaptan (0.5.10-1) unstable; urgency=medium
+
+  * New upstream version 0.5.10
+
+ -- Sebastien Delafond <seb@debian.org>  Sat, 04 Aug 2018 08:09:11 +0200
+
 python-kaptan (0.5.9-2) unstable; urgency=medium
 
   * Switch to DEP 14
