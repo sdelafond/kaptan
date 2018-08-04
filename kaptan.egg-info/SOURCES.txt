@@ -19,5 +19,6 @@ kaptan/handlers/json_handler.py
 kaptan/handlers/pyfile_handler.py
 kaptan/handlers/yaml_handler.py
 requirements/base.txt
+requirements/dev.txt
 requirements/doc.txt
 requirements/test.txt
