@@ -1,12 +1,11 @@
 Metadata-Version: 1.1
 Name: kaptan
-Version: 0.5.9
+Version: 0.5.10
 Summary: Configuration manager
 Home-page: https://github.com/emre/kaptan
 Author: Emre Yilmaz
 Author-email: mail@emreyilmaz.me
 License: BSD
-Description-Content-Type: UNKNOWN
 Description: kaptan
         ======
         
@@ -292,7 +291,7 @@ Classifier: Programming Language :: Python
 Classifier: Programming Language :: Python :: 2
 Classifier: Programming Language :: Python :: 2.7
 Classifier: Programming Language :: Python :: 3
-Classifier: Programming Language :: Python :: 3.3
 Classifier: Programming Language :: Python :: 3.4
 Classifier: Programming Language :: Python :: 3.5
 Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
