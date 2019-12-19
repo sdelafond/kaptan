@@ -2,19 +2,11 @@ Source: python-kaptan
 Maintainer: Debian QA Group <packages@qa.debian.org>
 Section: python
 Priority: optional
-Build-Depends: dh-python, python-setuptools, python3-setuptools, python-all, python3-all, python-yaml, python3-yaml, debhelper (>= 9)
+Build-Depends: dh-python, python3-setuptools, python3-all, python3-yaml, debhelper (>= 9)
 Standards-Version: 4.1.3
 Homepage: https://github.com/emre/kaptan
 Vcs-Git: https://salsa.debian.org/debian/python-kaptan.git
 Vcs-Browser: https://salsa.debian.org/debian/python-kaptan
-
-Package: python-kaptan
-Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}
-Description: Python configuration manager in various formats
- Configuration manager that allows users to transparently access
- configuration data stored in various formats (INI, JSON, YAML, dict,
- file).
 
 Package: python3-kaptan
 Architecture: all
