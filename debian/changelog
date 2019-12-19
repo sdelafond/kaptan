@@ -1,3 +1,9 @@
+python-kaptan (0.5.10-3) unstable; urgency=medium
+
+  * Remove python2 package
+
+ -- Sebastien Delafond <seb@debian.org>  Thu, 19 Dec 2019 17:07:54 +0100
+
 python-kaptan (0.5.10-2) unstable; urgency=medium
 
   * Set maintainer to Debian QA Group
